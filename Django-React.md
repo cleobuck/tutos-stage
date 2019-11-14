@@ -47,16 +47,16 @@ CMD python3 manage.py runserver 0.0.0.0:8000
 - On construit l'image en allant chercher la Dockerfile se trouvant dans le dossier backend. On lui donne le nom *backend* et le tag *latest* à l'aide du flag *-t* :
 
 ```
-docker build -t backend:latest backend
+$ docker build -t backend:latest backend
 ```
 - Ensuite on crée le projet Django start_student dont on lie les données en local au volume du container. On utilise pour se faire l'image qu'on vient de construire (*backend:latest*), ce qui crée un nouveau container:
  ```
-docker run -v $PWD/backend:/app/backend backend:latest django-admin startproject hello_world . 
+$ docker run -v $PWD/backend:/app/backend backend:latest django-admin startproject hello_world . 
 ```
 - pour finir, nous lançons un nouveau container qui va utiliser la commande par défaut de l'image *backend:latest* (c'est à dire le runserver de django). la commande va mapper les ports 8000 de l'hôte au port 8000 du container grâce au tag *-p*:
 
 ```
-docker run -v $PWD/backend:/app/backend -p 8000:8000 backend:latest
+$ docker run -v $PWD/backend:/app/backend -p 8000:8000 backend:latest
 ```
 
 - il suffit d'aller sur [localhost:8000](localhost:8000) pour voir l'app Django! 
@@ -90,25 +90,25 @@ celle-ci se base sur une image officielle de node. Tout est en place dans node p
 - Construisons l'image:
 
 ```
-docker build -t frontend:latest frontend
+$ docker build -t frontend:latest frontend
 ```
 
 - Créons notre app react à l'aide de notre image:
 
 ```
-docker run -v $PWD/frontend:/app frontend:latest npx create-react-app start_react
+$ docker run -v $PWD/frontend:/app frontend:latest npx create-react-app start_react
 ```
 
 - nettoyons un peu les dossiers:
 
 ```
-mv frontend/start_react/* frontend/hello-world/.gitignore frontend/ && rmdir frontend/start_react
+$ mv frontend/start_react/* frontend/hello-world/.gitignore frontend/ && rmdir frontend/start_react
 ```
 
 - il suffit maintenant de lancer l'appli avec la commande `npm start` sur le port 3000:
 
 ```
-docker run -v $PWD/frontend:/app -p 3000:3000 frontend:latest npm start
+$ docker run -v $PWD/frontend:/app -p 3000:3000 frontend:latest npm start
 ```
 
 - Direction [localhost:3000](localhost:3000) ça marche!
@@ -118,7 +118,7 @@ docker run -v $PWD/frontend:/app -p 3000:3000 frontend:latest npm start
 Avant de commencer, nous allons stopper les containers pour ne pas avoir de conflits de ports. 
 
 ```
-docker stop $(docker ps -q)
+$ docker stop $(docker ps -q)
 ```
 
 Cette commande va stopper tous les containers actifs 
@@ -155,7 +155,7 @@ services:
 Celui-ci implémente les différents services (dans ce cas-ci le *frontend* et *backend*) en construisant automatiquement les images (*build*), en créant les volumes, et en lancant des commandes. Il suffit maintenant de la commande suivante pour tout construire et lancer: 
 
 ```
-docker-compose up
+$ docker-compose up
 ```
 
 Cela fonctionne comme avant, sur les ports 3000 et 8000! 
@@ -167,7 +167,7 @@ On va voir maintenant comment transmettre des données entre le back et frontend
 - Créons d'abord une application Django qui va compter le nombre de caractère dans un mot:
 
 ```
-docker-compose run --rm backend python3 manage.py startapp char_count
+$ docker-compose run --rm backend python3 manage.py startapp char_count
 ```
 
 - ensuite on va ajouter cette fonction dans `
@@ -205,13 +205,13 @@ urlpatterns = [
 - On doit maintenant redémarrer les process pour que les changements soient effectifs:
 
 ```
-docker-compose stop
+$ docker-compose stop
 ```
 
 et 
 
 ```
-docker-compose up
+$ docker-compose up
 ```
 
 - allons voir le lien [localhost:8000/char_count?text=hello world]((localhost:8000/char_count?text=hello%20world)) . ça marche? 
@@ -223,14 +223,14 @@ docker-compose up
 - Il faudra maintenant retourner sur la `Dockerfile` du `frontend` pour décommenter le nécessaire pour que tout fonctionne
 - Nous allons d'abord ajouter le packet `axios`qui nous permettra de faire communiquer les deux services en l'ajoutant au `package.json` avec cette commande:
 ```
-docker-compose run --rm frontend npm add axios
+$ docker-compose run --rm frontend npm add axios
 ```
 
 - ensuite on compose-down et up en reconstruisant l'image pour que le package.json soit importé dans le container:
 
 ```
-docker-compose down
-docker-compose up --build
+$ docker-compose down
+$ docker-compose up --build
 ```
 
 - si tout fonctionne sur les deux ports, copier ceci dans `App.js` du projet React: 
