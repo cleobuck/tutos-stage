@@ -11,7 +11,7 @@
 ## L'arborescence du projet
 
 Avant la création de projets:
-
+```
 $ sudo mkdir project
 $ sudo mkdir project/frontend
 $ sudo mkdir project/backend
@@ -19,6 +19,7 @@ $ sudo mkdir project/backend
 $ sudo touch project/backend/Dockerfile
 $ sudo touch project/backend/requirements.txt
 $ sudo touch project/frontend/Dockerfile
+```
 ```
 ├── backend
 │   ├── Dockerfile
