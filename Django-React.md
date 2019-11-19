@@ -29,8 +29,8 @@ $ sudo touch project/frontend/Dockerfile
 ```
 ## 1. Création du projet Django et de son image 
 - Editer requirements.txt et y ajouter la version de`django et psycopg2 pour qu'il s'installe dans l'image
-  - Django: 2.2.6
-  - psycopg2: 2.8.4
+  - django==2.2.6
+  - psycopg2==2.8.4
 
 - La Dockerfile du backend: 
 ```
