@@ -38,14 +38,14 @@ $ sudo touch project/frontend/Dockerfile
 FROM python:3.7.5
 
 # Adding backend directory 
-WORKDIR /app/backend
+WORKDIR /app
 
 # Install Python dependencies
-COPY requirements.txt /app/backend
+COPY requirements.txt /app
 RUN pip3 install --upgrade pip -r requirements.txt
 
 # Add the rest of the code
-COPY . /app/backend
+COPY . /app/
 
 # Make port 8000 available for the app
 EXPOSE 8000
