@@ -19,7 +19,7 @@ $ sudo mkdir project/backend
 $ sudo touch project/backend/Dockerfile
 $ sudo touch project/backend/requirements.txt
 $ sudo touch project/frontend/Dockerfile
-
+```
 ├── backend
 │   ├── Dockerfile
 │   └── requirements.txt
