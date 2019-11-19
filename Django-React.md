@@ -11,7 +11,15 @@
 ## L'arborescence du projet
 
 Avant la création de projets:
-```
+
+$ sudo mkdir project
+$ sudo mkdir project/frontend
+$ sudo mkdir project/backend
+
+$ sudo touch project/backend/Dockerfile
+$ sudo touch project/backend/requirements.txt
+$ sudo touch project/frontend/Dockerfile
+
 ├── backend
 │   ├── Dockerfile
 │   └── requirements.txt
@@ -19,10 +27,11 @@ Avant la création de projets:
     └── Dockerfile
 ```
 ## 1. Création du projet Django et de son image 
-- il faut ajouter `django==2.2.6`à *requirements.txt* pour qu'il s'installe dans l'image
+- Editer requirements.txt et y ajouter la version de`django et psycopg2 pour qu'il s'installe dans l'image
+  - Django: 2.2.6
+  - psycopg2: 2.8.4
 
 - La Dockerfile du backend: 
-
 ```
 # Official python image (stable one)
 FROM python:3.7.5
